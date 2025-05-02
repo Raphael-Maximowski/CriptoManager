@@ -1,0 +1,132 @@
+body {
+    background-color: black;
+}
+
+.seach-input {
+    padding-left: 40px;
+}
+
+.seach-input {
+    border: lightgray;
+    color: gray;
+}
+
+.seach-input::placeholder {
+    color: gray;
+}
+
+.seach-input:focus {
+    box-shadow: none;
+    color: gray;
+}
+
+.bi-search {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    color: gray;
+}
+
+.text-color {
+    color: gray;
+}
+
+.create-coin-button, .main-info {
+    font-size: 14px;
+}
+
+.cripto-list {
+    border: 1px solid gray;
+}
+
+table {
+    overflow-x: auto;
+}
+
+th, td {
+    min-width: 250px;
+    width: 0%;
+    vertical-align: middle;
+    color: gray;
+}
+
+thead {
+    height: 50px;
+    border-bottom: 1px solid gray;
+}
+
+th {
+    font-size: 16px;
+}
+
+td {
+    font-size: 14px;
+    height: 60px;
+    border-bottom: 1px solid gray;
+}
+
+.custom-sidebar::-webkit-scrollbar {
+    width: 11px;
+}
+
+.custom-sidebar::-webkit-scrollbar-track {
+    background: lightgray;
+    border-radius: 20px;
+}
+
+.custom-sidebar::-webkit-scrollbar-thumb {
+    width: 11px;
+    background-color: gray;
+    border-radius: 20px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+
+label {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.modalInput {
+    background-color: gray;
+    color: lightgray;
+    border: gray;
+    font-size: 13px;
+}
+
+.modalInput::placeholder {
+    color: lightgray;
+}
+
+.modalInput:focus {
+    background-color: gray;
+    color: lightgray;
+    box-shadow: none;
+    border: gray;
+}
+
+.input-prefix {
+    top: 50%;
+    margin-left: 10px;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: lightgray;
+}
+
+.liquidity-input {
+    padding-left: 30px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove as setas no Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
