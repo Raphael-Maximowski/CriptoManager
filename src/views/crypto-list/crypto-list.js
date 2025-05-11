@@ -1,0 +1,106 @@
+import {createCoinInDataMockup, cryptoCoinsData} from '../../../data/CryptoData.js';
+import {validateCoinData} from "../../../utils/validators.js";
+
+const cryptoCoins = [...cryptoCoinsData]
+const cryptoTable = document.getElementById('cryptoTable')
+const saveCoinDataButton = document.getElementById('saveCoinDataButton')
+const cryptoNameInputElement = document.getElementById('cryptoNameInputElement')
+const cryptoTickerInputElement = document.getElementById('cryptoTickerInputElement')
+const cryptoLiquidityInputElement = document.getElementById('cryptoLiquidityInputElement')
+const cryptoNationalityInputElement = document.getElementById('cryptoNationatilityInputElement')
+const cryptoDescriptionInputElement = document.getElementById('cryptoDescriptionInputElement')
+const createOrUpdateCoinModal = new bootstrap.Modal(document.getElementById('createOrUpdateCoin'));
+const createCoinButton = document.getElementById('createCoinButton')
+const closeCreateCoinModalButton = document.getElementById('closeModalTopButton')
+
+const redirectToCryptoView = (event) => {
+    const tableRow = event.target.closest('tr')
+    if (tableRow?.id) {
+        window.location.href = `../crypto-details/crypto-details.html?id=${tableRow?.id}`;
+    }
+}
+
+const handleCreateOrUpdateCryptoModalState = (state) => {
+    state ?
+        createOrUpdateCoinModal.show()
+        : createOrUpdateCoinModal.hide()
+}
+
+const createNewCoin = async () => {
+    let newCryptoData = {
+        name: cryptoNameInputElement.value,
+        ticker: cryptoTickerInputElement.value,
+        liquidity: cryptoLiquidityInputElement.value,
+        nationality: cryptoNationalityInputElement.value,
+        description: cryptoDescriptionInputElement.value,
+        createdByUser: true
+    }
+
+    if (!await validateCoinData(newCryptoData)) return
+    newCryptoData = {
+        id: cryptoCoins.length === 0 ? 0
+            : cryptoCoins[cryptoCoins.length - 1].id + 1,
+        ...newCryptoData,
+        volume: 0,
+        dayPercentage: 0,
+        price: 0.10
+    }
+
+    await createCoinInDataMockup(newCryptoData)
+    await renderCryptoInTemplate(newCryptoData)
+    await handleCreateOrUpdateCryptoModalState(false)
+    await clearCreateOrUpdateCryptoModalData()
+}
+
+const renderCryptoInTemplate = (cryptoData) => {
+    const newTableRow = cryptoTable.insertRow()
+    newTableRow.id = `${cryptoData.id}`
+
+    const coinTick = newTableRow.insertCell(0)
+    coinTick.insertAdjacentHTML("beforeend", `<i class="fs-6 text-success bi bi-currency-bitcoin"/> `);
+    coinTick.insertAdjacentHTML("beforeend", `${cryptoData.ticker}`);
+
+    const coinPrice = newTableRow.insertCell(1)
+    coinPrice.innerHTML = `$${cryptoData.price}`
+
+    const coinVolume = newTableRow.insertCell(2)
+    coinVolume.innerHTML = `$${cryptoData.volume}`
+
+    const coinPercentage = newTableRow.insertCell(3)
+    coinPercentage.innerHTML = cryptoData.dayPercentage < 0 ?
+        `<i class="bi bi-chevron-down"></i> ${cryptoData.dayPercentage}%`
+        : `<i class="bi bi-chevron-up"></i> ${cryptoData.dayPercentage}%`
+    coinPercentage.style.color = cryptoData.dayPercentage < 0 ? 'red' : '#198754'
+}
+
+const clearCreateOrUpdateCryptoModalData = () => {
+    cryptoNameInputElement.value = ''
+    cryptoTickerInputElement.value = ''
+    cryptoLiquidityInputElement.value = ''
+    cryptoNationalityInputElement.value = ''
+    cryptoDescriptionInputElement.value = ''
+}
+
+const renderCryptoTableRows = () => {
+    cryptoCoins.forEach((cryptoData, index) => {
+        renderCryptoInTemplate(cryptoData, index)
+    })
+}
+saveCoinDataButton && (saveCoinDataButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    createNewCoin()
+}))
+
+createCoinButton && (createCoinButton.addEventListener('click', () => {
+    handleCreateOrUpdateCryptoModalState(true)
+}))
+
+closeCreateCoinModalButton && (closeCreateCoinModalButton.addEventListener('click', () => {
+    handleCreateOrUpdateCryptoModalState(false)
+}))
+
+cryptoTable && (cryptoTable.addEventListener('click', (event) => {
+    redirectToCryptoView(event)
+}))
+
+renderCryptoTableRows()
