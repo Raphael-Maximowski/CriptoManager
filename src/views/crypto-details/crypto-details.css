@@ -1,0 +1,13 @@
+#iconCrypto{
+    max-width: 100px;
+    border-radius: 50px;
+}
+
+#iconCryptoModal{
+    max-width: 50px;
+    border-radius: 50px;
+}
+
+.hidden{
+    display: none;
+}

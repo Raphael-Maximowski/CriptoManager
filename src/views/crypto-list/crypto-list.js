@@ -1,8 +1,13 @@
-import {createCoinInDataMockup, cryptoCoinsData} from '../../../data/CryptoData.js';
+import {createCoinInDataMockup, cryptoCoinsData, resetLocalStorage} from '../../../data/CryptoData.js';
+import { successNotification } from '../../../utils/notifications.js';
 import {validateCoinData} from "../../../utils/validators.js";
 
 const cryptoCoins = [...cryptoCoinsData]
+
 const cryptoTable = document.getElementById('cryptoTable')
+const filterCoins = document.getElementById("filterCoins")
+const searchCoins = document.getElementById("searchCoins")
+const urlElement = document.getElementById("cryptoIconInputElement")
 const saveCoinDataButton = document.getElementById('saveCoinDataButton')
 const cryptoNameInputElement = document.getElementById('cryptoNameInputElement')
 const cryptoTickerInputElement = document.getElementById('cryptoTickerInputElement')
@@ -28,6 +33,7 @@ const handleCreateOrUpdateCryptoModalState = (state) => {
 
 const createNewCoin = async () => {
     let newCryptoData = {
+        iconUrl: urlElement.value,
         name: cryptoNameInputElement.value,
         ticker: cryptoTickerInputElement.value,
         liquidity: cryptoLiquidityInputElement.value,
@@ -36,20 +42,22 @@ const createNewCoin = async () => {
         createdByUser: true
     }
 
-    if (!await validateCoinData(newCryptoData)) return
-    newCryptoData = {
-        id: cryptoCoins.length === 0 ? 0
-            : cryptoCoins[cryptoCoins.length - 1].id + 1,
-        ...newCryptoData,
-        volume: 0,
-        dayPercentage: 0,
-        price: 0.10
+    if (!await validateCoinData(newCryptoData, false)) return
+        newCryptoData = {
+            id: cryptoCoins.length === 0 ? 0
+                : cryptoCoins[cryptoCoins.length - 1].id + 1,
+            ...newCryptoData,
+            volume: "0",
+            dayPercentage: 0,
+            price: 0.10
     }
 
     await createCoinInDataMockup(newCryptoData)
     await renderCryptoInTemplate(newCryptoData)
     await handleCreateOrUpdateCryptoModalState(false)
     await clearCreateOrUpdateCryptoModalData()
+
+    return newCryptoData
 }
 
 const renderCryptoInTemplate = (cryptoData) => {
@@ -81,11 +89,13 @@ const clearCreateOrUpdateCryptoModalData = () => {
     cryptoDescriptionInputElement.value = ''
 }
 
-const renderCryptoTableRows = () => {
-    cryptoCoins.forEach((cryptoData, index) => {
+const renderCryptoTableRows = (data) => {
+    cryptoTable.innerHTML = '';
+    data.forEach((cryptoData, index) => {
         renderCryptoInTemplate(cryptoData, index)
     })
 }
+
 saveCoinDataButton && (saveCoinDataButton.addEventListener('click', (event) => {
     event.preventDefault()
     createNewCoin()
@@ -103,4 +113,61 @@ cryptoTable && (cryptoTable.addEventListener('click', (event) => {
     redirectToCryptoView(event)
 }))
 
-renderCryptoTableRows()
+renderCryptoTableRows(cryptoCoins)
+
+
+// Alan
+let filter = 'todas'
+let searchTerm = ''
+
+function applyFilters() {
+    let arrayFiltered = [...cryptoCoins]
+
+    switch(filter){
+        case "em-alta":
+            arrayFiltered = arrayFiltered.filter(coin => coin.dayPercentage >= 0)
+            break;
+        case "em-baixa":
+            arrayFiltered = arrayFiltered.filter(coin => coin.dayPercentage < 0)
+            break;
+            case "my-coin":
+                arrayFiltered = arrayFiltered.filter(coin => coin.createdByUser == true)
+                break;
+        default:
+            arrayFiltered = [...cryptoCoins]
+    }
+
+    if(searchTerm.trim() !== ''){
+        const search = searchTerm.toLowerCase();
+
+        arrayFiltered = arrayFiltered.filter(coin =>
+            coin.name.toLowerCase().includes(search) ||
+            coin.ticker.toLowerCase().includes(search) ||
+            coin.nationality.toLowerCase().includes(search)
+        )
+    }
+
+    renderCryptoTableRows(arrayFiltered)
+}
+
+filterCoins.addEventListener('input', (event) => {
+    filter = event.target.value;
+
+    applyFilters();
+})
+
+searchCoins.addEventListener('input', (event) => {
+    searchTerm = event.target.value;
+    
+    applyFilters();
+})
+
+window.addEventListener("DOMContentLoaded", () => {
+    const mensagem = localStorage.getItem("mensagemSuccess")
+
+    if(mensagem){
+        successNotification(mensagem)
+
+        localStorage.removeItem("mensagemSuccess")
+    }
+})
