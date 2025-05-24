@@ -3,6 +3,7 @@ import { successNotification } from '../../../utils/notifications.js';
 import {validateCoinData} from "../../../utils/validators.js";
 
 const cryptoCoins = [...cryptoCoinsData]
+let filter = "todas"
 
 const cryptoTable = document.getElementById('cryptoTable')
 const filterCoins = document.getElementById("filterCoins")
@@ -57,7 +58,9 @@ const createNewCoin = async () => {
     await handleCreateOrUpdateCryptoModalState(false)
     await clearCreateOrUpdateCryptoModalData()
 
-    return newCryptoData
+    cryptoCoins.push(newCryptoData);
+    applyFilters();
+
 }
 
 const renderCryptoInTemplate = (cryptoData) => {
@@ -117,7 +120,6 @@ renderCryptoTableRows(cryptoCoins)
 
 
 // Alan
-let filter = 'todas'
 let searchTerm = ''
 
 function applyFilters() {
@@ -153,6 +155,8 @@ function applyFilters() {
 filterCoins.addEventListener('input', (event) => {
     filter = event.target.value;
 
+    localStorage.setItem("filter", filter)
+
     applyFilters();
 })
 
@@ -164,6 +168,14 @@ searchCoins.addEventListener('input', (event) => {
 
 window.addEventListener("DOMContentLoaded", () => {
     const mensagem = localStorage.getItem("mensagemSuccess")
+    const savedfilter = localStorage.getItem("filter")
+
+    if(savedfilter){
+        filterCoins.value = savedfilter
+        filter = savedfilter
+        applyFilters()
+    }
+
 
     if(mensagem){
         successNotification(mensagem)
