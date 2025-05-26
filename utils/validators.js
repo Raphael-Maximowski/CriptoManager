@@ -48,3 +48,13 @@ export const validateCreateNewUser = (dataNewUser, datasUsers) => {
 
     return true
 }
+
+export const validationLogin = (conta) => {
+
+    if(conta.length < 6){
+        errorNotification("Campo precisa ter pelo menos 6 caracteres!")
+        return false
+    }
+
+    return true
+}

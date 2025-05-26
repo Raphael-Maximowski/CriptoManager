@@ -11,7 +11,7 @@ const inputCEP = document.getElementById("inputCEP")
 
 const createNewUser = () => {
     const numberAccount = () => {
-        return Math.floor(100000 + Math.random() * 900000); // garante 6 dígitos
+        return Math.floor(100000 + Math.random() * 900000)
     }
 
     return {
@@ -43,7 +43,7 @@ function clearInputValue() {
 }
 
 function redirectToRouter(){
-    window.location.href = "../login/login.html"
+    window.replace("../login/login.html")
 }
 
 IMask(inputCPF, {
@@ -61,15 +61,18 @@ IMask(inputTelefone, {
 document.getElementById("formCreateNewUser").addEventListener("submit", (event) => {
     event.preventDefault()
     const dataUsers = localStorage.getItem("Users");
+    console.log(dataUsers)
     const newUser = createNewUser()
-    const data =  dataUsers == ""? []: JSON.parse(dataUsers)
+    const data =  dataUsers == null? []: JSON.parse(dataUsers)
+
+    console.log("Data", data)
 
     const validacao = validateCreateNewUser(newUser, data)
 
     if(validacao){
         data.push(newUser)
         localStorage.setItem("Users", JSON.stringify(data))
-        setInterval(redirectToRouter, 3000)
+        setInterval(redirectToRouter, 1000)
     }
 
     setInterval(clearInputValue, 3000)

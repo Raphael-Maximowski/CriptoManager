@@ -2,28 +2,21 @@ body {
     background-color: black;
 }
 
-.seach-input {
-    padding-left: 40px;
+.search-input {
+    padding-left: 10px;
 }
 
-.seach-input {
+.search-input {
     border: lightgray;
     color: gray;
 }
 
-.seach-input::placeholder {
+.search-input::placeholder {
     color: gray;
 }
 
-.seach-input:focus {
+.search-input:focus {
     box-shadow: none;
-    color: gray;
-}
-
-.bi-search {
-    top: 50%;
-    transform: translateY(-50%);
-    left: 10px;
     color: gray;
 }
 
@@ -127,5 +120,15 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Remove as setas no Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+.group{
+    width: 23%;
+}
+
+@media (max-width: 600px){
+    .group{
+        width: 100%;
+    }
 }
 

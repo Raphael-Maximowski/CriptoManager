@@ -2,8 +2,18 @@ import {createCoinInDataMockup, cryptoCoinsData, resetLocalStorage} from '../../
 import { successNotification } from '../../../utils/notifications.js';
 import {validateCoinData} from "../../../utils/validators.js";
 
-const cryptoCoins = [...cryptoCoinsData]
+const getUserLogged = () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const accountUserLogged = urlParams.get('account')
+    let users = JSON.parse(localStorage.getItem('Users'))
 
+    const response = users.filter(user => (user.number_account == accountUserLogged || user.cpf == accountUserLogged))
+
+    return response
+}
+
+const cryptoCoins = [...cryptoCoinsData]
+const userLogged = getUserLogged()
 let filter = "todas"
 
 const cryptoTable = document.getElementById('cryptoTable')
@@ -11,6 +21,7 @@ const filterCoins = document.getElementById("filterCoins")
 const searchCoins = document.getElementById("searchCoins")
 const urlElement = document.getElementById("cryptoIconInputElement")
 const saveCoinDataButton = document.getElementById('saveCoinDataButton')
+const logoutButton = document.getElementById('buttonLogOut')
 const cryptoNameInputElement = document.getElementById('cryptoNameInputElement')
 const cryptoTickerInputElement = document.getElementById('cryptoTickerInputElement')
 const cryptoLiquidityInputElement = document.getElementById('cryptoLiquidityInputElement')
@@ -172,6 +183,8 @@ window.addEventListener("DOMContentLoaded", () => {
     const mensagem = localStorage.getItem("mensagemSuccess")
     const savedfilter = localStorage.getItem("filter")
 
+    console.log("Account", userLogged) // usuário que está logado no sistema
+
     if(savedfilter){
         filterCoins.value = savedfilter
         filter = savedfilter
@@ -184,3 +197,17 @@ window.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("mensagemSuccess")
     }
 })
+
+function logOut(){
+    if(userLogged.length === 0){
+        window.location.replace("../login/login.html")
+    }
+}
+
+logoutButton.addEventListener("click", () => {
+    userLogged.pop()
+
+    console.log(userLogged)
+    logOut()
+})
+
