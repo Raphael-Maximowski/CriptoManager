@@ -1,7 +1,5 @@
 import { validationLogin } from "../../../utils/validators.js";
 
-const users = JSON.parse(localStorage.getItem("Users"))
-
 const inputConta = document.getElementById("inputNumContaOrCpf")
 const inputPassword = document.getElementById("inputPassword")
 const buttonShowPassword = document.getElementById("toggleSenha")
@@ -36,7 +34,6 @@ document.getElementById("formValidationUsuario").addEventListener("submit", (eve
 
 buttonShowPassword.addEventListener("click", () => {
     const typeCurrent = inputPassword.getAttribute("type")
-    console.log(typeCurrent)
 
     if(typeCurrent === "password"){
         inputPassword.setAttribute("type", "text");

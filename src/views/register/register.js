@@ -26,7 +26,9 @@ const createNewUser = () => {
         nacionalidade: inputNacionalidade.value,
         password: inputPassword.value,
         number_account: numberAccount(),
-        carteira: []
+        carteira: [],
+        create_data: new Date(),
+        access_last_account: new Date()
     }
 
 }
@@ -43,7 +45,7 @@ function clearInputValue() {
 }
 
 function redirectToRouter(){
-    window.replace("../login/login.html")
+    window.location.replace("../login/login.html")
 }
 
 IMask(inputCPF, {
@@ -61,12 +63,8 @@ IMask(inputTelefone, {
 document.getElementById("formCreateNewUser").addEventListener("submit", (event) => {
     event.preventDefault()
     const dataUsers = localStorage.getItem("Users");
-    console.log(dataUsers)
     const newUser = createNewUser()
     const data =  dataUsers == null? []: JSON.parse(dataUsers)
-
-    console.log("Data", data)
-
     const validacao = validateCreateNewUser(newUser, data)
 
     if(validacao){

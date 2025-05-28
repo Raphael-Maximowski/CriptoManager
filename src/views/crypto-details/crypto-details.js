@@ -185,7 +185,6 @@ window.addEventListener("DOMContentLoaded", () => {
     if(!cryptoData.createdByUser){
         document.getElementById('updateCryptoButton').classList.add('hidden')
         document.getElementById('openModalExclused').classList.add('hidden')
-        console.log("CryptoData: ", cryptoData)
 
         const buyCoin = document.createElement('button')
         buyCoin.classList.add("btn", "btn-success", "col-md-2")

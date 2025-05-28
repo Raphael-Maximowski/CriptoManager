@@ -7,7 +7,8 @@ const getUserLogged = () => {
     const accountUserLogged = urlParams.get('account')
     let users = JSON.parse(localStorage.getItem('Users'))
 
-    const response = users.filter(user => (user.number_account == accountUserLogged || user.cpf == accountUserLogged))
+    let response = users.filter(user => (user.number_account == accountUserLogged || user.cpf == accountUserLogged))
+    response[0].access_last_account = new Date()
 
     return response
 }
@@ -198,16 +199,11 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 })
 
-function logOut(){
-    if(userLogged.length === 0){
-        window.location.replace("../login/login.html")
-    }
-}
-
 logoutButton.addEventListener("click", () => {
     userLogged.pop()
 
-    console.log(userLogged)
-    logOut()
+    if(userLogged.length === 0){
+        window.location.replace("../login/login.html")
+    }
 })
 
