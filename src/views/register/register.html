@@ -12,32 +12,54 @@
         
         <script src="https://unpkg.com/imask"></script>
     </head>
-<body class="vh-md-100 bg-black d-flex justify-content-center align-content-center overflow-hidden">
+<body class="bg-black d-flex justify-content-center align-items-center min-vh-100 overflow-hidden">
 
-    <form id="formCreateNewUser" class="container col-md-8 p-5 rounded-5 mt-5">
-        <div class="d-md-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi fs-3 me-2 bi-bar-chart-fill text-success"></i>
-                    <h1 class="mb-0 fs-3 fw-bold text-white">CryptoTracker</h1>
-            </div>
-            <div class="text-light fs-3 fw-bold d-none d-md-block">
-                <i class="bi bi-person-plus-fill"></i> Cadastrar-se
-            </div>
+    <form id="formCreateNewUser" class="bg-dark text-light p-4 p-md-5 rounded-4 shadow-lg w-100 mx-3" style="max-width: 600px;">
+        <!-- Cabeçalho -->
+        <div class="mb-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-3 mb-md-0">
+            <i class="bi bi-bar-chart-fill fs-3 text-success me-2"></i>
+            <h1 class="fs-4 fw-bold m-0">CryptoTracker</h1>
+        </div>
+        <div class="fs-5 fw-semibold d-none d-md-flex align-items-center text-light">
+            <i class="bi bi-person-plus-fill me-2"></i> Cadastrar-se
+        </div>
         </div>
 
-        <input type="text" id="inputName" class="form-control mt-4" placeholder="Nome" required>
-        <input type="text" id="inputCPF" class="form-control mt-4" placeholder="CPF" required>
-        <input type="email" id="inputEmail" class="form-control mt-4" placeholder="E-mail" required>
-        <input type="tel" id="inputTelefone" class="form-control mt-4" placeholder="Telefone" required>
-        <div class="d-flex align-items-center gap-3">
-            <input type="text" id="inputCEP" class="form-control mt-4 w-25" placeholder="CEP" required>
-            <input type="text" id="inputComplemento" class="form-control mt-4" placeholder="Complemento" required>
+        <!-- Campos -->
+        <div class="mb-3">
+        <input type="text" id="inputName" class="form-control bg-opacity-25 border-0" placeholder="Nome" required>
         </div>
-        <input type="text" id="inputNacionalidade" class="form-control mt-4" placeholder="Nacionalidade" required>
-        <input type="password" id="inputPassword" class="form-control mt-4" placeholder="password" required>
+        <div class="mb-3">
+        <input type="text" id="inputCPF" class="form-control bg-opacity-25 border-0" placeholder="CPF" required>
+        </div>
+        <div class="mb-3">
+        <input type="email" id="inputEmail" class="form-control bg-opacity-25 border-0" placeholder="E-mail" required>
+        </div>
+        <div class="mb-3">
+        <input type="tel" id="inputTelefone" class="form-control bg-opacity-25 border-0" placeholder="Telefone" required>
+        </div>
 
-        <button type="submit" class="btn btn-success mt-4">Cadastrar-se</button>
+        <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <input type="text" id="inputCEP" class="form-control bg-opacity-25 border-0" placeholder="CEP" required>
+        </div>
+        <div class="col-md-8">
+            <input type="text" id="inputComplemento" class="form-control bg-opacity-25 border-0" placeholder="Endereço" required>
+        </div>
+        </div>
+
+        <div class="mb-3">
+        <input type="text" id="inputNacionalidade" class="form-control bg-opacity-25 border-0" placeholder="Nacionalidade" required>
+        </div>
+        <div class="mb-4">
+        <input type="password" id="inputPassword" class="form-control bg-opacity-25 border-0" placeholder="Password" required>
+        </div>
+
+        <!-- Botão -->
+        <button type="submit" class="btn btn-success w-100 py-2 fw-semibold">Cadastrar-se</button>
     </form>
+
 
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

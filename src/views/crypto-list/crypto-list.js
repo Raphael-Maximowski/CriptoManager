@@ -7,8 +7,8 @@ const getUserLogged = () => {
     const accountUserLogged = urlParams.get('account')
     let users = JSON.parse(localStorage.getItem('Users'))
 
-    let response = users.filter(user => (user.number_account == accountUserLogged || user.cpf == accountUserLogged))
-    response[0].access_last_account = new Date()
+    let response = users.filter(user => (user.number_account == accountUserLogged))
+    response[0].access_last_account = new Date().toLocaleString("pt-BR")
 
     return response
 }

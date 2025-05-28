@@ -49,9 +49,12 @@ export const validateCreateNewUser = (dataNewUser, datasUsers) => {
     return true
 }
 
-export const validationLogin = (conta) => {
+export const validationLogin = (Inputconta, Inputpassword) => {
 
-    if(conta.length < 6){
+    if(Inputconta.length === 0 || Inputpassword.length === 0){
+        errorNotification("Campo de Obrigatório!")
+        return false
+    }else if(Inputconta.length < 6){
         errorNotification("Campo precisa ter pelo menos 6 caracteres!")
         return false
     }

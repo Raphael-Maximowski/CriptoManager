@@ -27,8 +27,7 @@ const createNewUser = () => {
         password: inputPassword.value,
         number_account: numberAccount(),
         carteira: [],
-        create_data: new Date(),
-        access_last_account: new Date()
+        create_data: new Date().toLocaleDateString("pt-BR"),
     }
 
 }
@@ -58,7 +57,7 @@ IMask(inputCEP, {
 
 IMask(inputTelefone, {
     mask: '(00) 00000-0000'
-})
+}) 
 
 document.getElementById("formCreateNewUser").addEventListener("submit", (event) => {
     event.preventDefault()
