@@ -1,3 +1,4 @@
+import { errorNotification, successNotification } from "../../../utils/notifications.js";
 import { validationLogin } from "../../../utils/validators.js";
 
 const inputConta = document.getElementById("inputNumContaOrCpf")
@@ -21,14 +22,29 @@ document.getElementById("formValidationUsuario").addEventListener("submit", (eve
     event.preventDefault()
 
     const userLog = {
-        numConta_or_pf: inputConta.value,
+        numConta_or_cpf: inputConta.value,
         password: inputPassword.value
     }
 
-    const responseValidation = validationLogin(userLog.numConta_or_pf)
+    const responseValidation = validationLogin(userLog.numConta_or_cpf, userLog.password)
 
     if(responseValidation){
-        window.location.href = `../crypto-list/crypto-list.html?account=${userLog.numConta_or_pf}`
+       const users_BD = JSON.parse(localStorage.getItem("Users"))
+       console.log(users_BD)
+       
+       if(users_BD === null){
+        localStorage.setItem("Users", JSON.stringify([]))
+       }
+
+       const userLogged = users_BD.find(user => user.numConta_or_pf === userLog.numConta_or_cpf|| user.cpf === userLog.numConta_or_cpf)
+
+       if(userLogged === undefined){
+            errorNotification("Usuário não existe no sistema!")
+       }
+
+       console.log(userLogged.number_account)
+
+       window.location.replace(`../crypto-list/crypto-list.html?account=${userLogged.number_account}`)
     }
 })
 

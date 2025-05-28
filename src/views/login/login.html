@@ -12,30 +12,34 @@
 
     <script src="https://unpkg.com/imask"></script>
 </head>
-<body class="vh-100 d-flex align-items-center justify-content-center bg-black overflow-hidden">
-    <form id="formValidationUsuario" class="needs-validation p-5 col-md-6" novalidate>
-        <div class="d-md-flex align-items-center justify-content-between mb-5">
-            <div class="d-flex align-items-center justify-content-center">
+<body class="overflow-hidden w-100 bg-black text-light d-flex justify-content-center align-items-center min-vh-100">
+    <form id="formValidationUsuario" class="container p-4 rounded-4 shadow bg-dark mx-3" style="max-width: 600px;">
+        <div class="mb-4 text-center">
+            <div class="mb-2 d-flex justify-content-center align-content-center">
                 <i class="bi fs-3 me-2 bi-bar-chart-fill text-success"></i>
                 <h1 class="mb-0 fs-3 fw-bold text-white">CryptoTracker</h1>
             </div>
-            <div class="text-light fs-3 d-none d-md-block">
-                <i class="bi bi-box-arrow-in-right"></i> Entrar
+            <div class="fs-3">
+                <i class="bi bi-person-circle me-2"></i> Entrar
             </div>
         </div>
 
-        <input type="text" id="inputNumContaOrCpf" class="form-control mb-4" placeholder="Número da conta ou CPF*">
-        <div class="input-group mb-4">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Senha*">
-            <button class="btn btn-light" type="button" id="toggleSenha">
+        <div class="mb-3">
+            <input type="text" id="inputNumContaOrCpf" class="form-control form-control-lg rounded-3" placeholder="Número da conta ou CPF*" required>
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="password" id="inputPassword" class="form-control form-control-lg rounded-start-3" placeholder="Senha*" required>
+            <button class="btn btn-light rounded-end-3" type="button" id="toggleSenha">
                 <i class="bi bi-eye-slash" id="iconeSenha"></i>
             </button>
         </div>
 
-        <button type="submit" class="btn btn-success w-100">Entrar</button>
+        <button type="submit" class="btn btn-success w-100 btn-lg rounded-3">Entrar</button>
 
-        <a href="../register/register.html" class="d-block text-center mt-5 text-decoration-none text-light">Ainda não tem conta? <strong class="text-success">Cadastrar-se</strong></a>
-
+        <a href="../register/register.html" class="d-block text-center mt-4 text-decoration-none text-light">
+            Ainda não tem conta? <strong class="text-success">Cadastrar-se</strong>
+        </a>
     </form>
 
 
