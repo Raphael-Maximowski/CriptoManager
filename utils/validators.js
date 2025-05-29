@@ -24,3 +24,40 @@ export const validateCoinData = (cryptoData, update) => {
     
     return true
 }
+
+export const validateCreateNewUser = (dataNewUser, datasUsers) => {
+
+    const userExistInArray = datasUsers.length === 0 ? false : true
+
+    if(userExistInArray){
+        const resultValidationCPF = datasUsers.find(user => user.cpf === dataNewUser.cpf)
+        const resultValidationEmail = datasUsers.find(user => user.email === dataNewUser.email)
+
+        if(resultValidationCPF){
+            errorNotification("Já existe um usuário com esse CPF")
+            return false
+        }
+
+        if(resultValidationEmail){
+            errorNotification("Já existe um usuário com esse E-mail")
+            return false
+        }
+    }
+
+    successNotification("Usuário registrado no sistema!")
+
+    return true
+}
+
+export const validationLogin = (Inputconta, Inputpassword) => {
+
+    if(Inputconta.length === 0 || Inputpassword.length === 0){
+        errorNotification("Campo de Obrigatório!")
+        return false
+    }else if(Inputconta.length < 6){
+        errorNotification("Campo precisa ter pelo menos 6 caracteres!")
+        return false
+    }
+
+    return true
+}

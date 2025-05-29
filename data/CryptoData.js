@@ -102,8 +102,16 @@ export const updateCoinInDataMockup = (cryptoData) => {
     }
 }
 
-export const resetLocalStorage = () => {
-    localStorage.setItem("cryptoCoinsData", JSON.stringify(originalArray))
+
+export const resetLocalStorage = (array) => {
+
+    if("cripto"){
+        localStorage.setItem("cryptoCoinsData", JSON.stringify(originalArray))
+    }
+
+    if("users"){
+        localStorage.setItem("Users", [])
+    }
 }
 
 

@@ -2,13 +2,27 @@ import {createCoinInDataMockup, cryptoCoinsData, resetLocalStorage} from '../../
 import { successNotification } from '../../../utils/notifications.js';
 import {validateCoinData} from "../../../utils/validators.js";
 
+const getUserLogged = () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const accountUserLogged = urlParams.get('account')
+    let users = JSON.parse(localStorage.getItem('Users'))
+
+    let response = users.filter(user => (user.number_account == accountUserLogged))
+    response[0].access_last_account = new Date().toLocaleString("pt-BR")
+
+    return response
+}
+
 const cryptoCoins = [...cryptoCoinsData]
+const userLogged = getUserLogged()
+let filter = "todas"
 
 const cryptoTable = document.getElementById('cryptoTable')
 const filterCoins = document.getElementById("filterCoins")
 const searchCoins = document.getElementById("searchCoins")
 const urlElement = document.getElementById("cryptoIconInputElement")
 const saveCoinDataButton = document.getElementById('saveCoinDataButton')
+const logoutButton = document.getElementById('buttonLogOut')
 const cryptoNameInputElement = document.getElementById('cryptoNameInputElement')
 const cryptoTickerInputElement = document.getElementById('cryptoTickerInputElement')
 const cryptoLiquidityInputElement = document.getElementById('cryptoLiquidityInputElement')
@@ -57,7 +71,10 @@ const createNewCoin = async () => {
     await handleCreateOrUpdateCryptoModalState(false)
     await clearCreateOrUpdateCryptoModalData()
 
-    return newCryptoData
+
+    cryptoCoins.push(newCryptoData);
+    applyFilters();
+
 }
 
 const renderCryptoInTemplate = (cryptoData) => {
@@ -117,7 +134,6 @@ renderCryptoTableRows(cryptoCoins)
 
 
 // Alan
-let filter = 'todas'
 let searchTerm = ''
 
 function applyFilters() {
@@ -153,6 +169,8 @@ function applyFilters() {
 filterCoins.addEventListener('input', (event) => {
     filter = event.target.value;
 
+    localStorage.setItem("filter", filter)
+
     applyFilters();
 })
 
@@ -164,6 +182,15 @@ searchCoins.addEventListener('input', (event) => {
 
 window.addEventListener("DOMContentLoaded", () => {
     const mensagem = localStorage.getItem("mensagemSuccess")
+    const savedfilter = localStorage.getItem("filter")
+
+    console.log("Account", userLogged) // usuário que está logado no sistema
+
+    if(savedfilter){
+        filterCoins.value = savedfilter
+        filter = savedfilter
+        applyFilters()
+    }
 
     if(mensagem){
         successNotification(mensagem)
@@ -171,3 +198,12 @@ window.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("mensagemSuccess")
     }
 })
+
+logoutButton.addEventListener("click", () => {
+    userLogged.pop()
+
+    if(userLogged.length === 0){
+        window.location.replace("../login/login.html")
+    }
+})
+
