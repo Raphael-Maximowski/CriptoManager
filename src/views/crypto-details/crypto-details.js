@@ -17,7 +17,15 @@ const openModalExclused = document.getElementById('openModalExclused')
 const deleteCrypto = document.getElementById('deleteCoin')
 const modalExclusedCoin = document.getElementById('modalExclusedCoin')
 const closeModalExclused = document.getElementById('closeModalExclused')
+const buyCoinModal = new bootstrap.Modal(document.getElementById('buyCoinModal'))
+const closeBuyCoinModalButton = document.getElementById('closeBuyCoinModalButton')
 let cryptoData = null
+
+const handleBuyCoinModalState = (state) => {
+    state ?
+        buyCoinModal.show()
+        : buyCoinModal.hide()
+}
 
 const informationCrypto = {
     img: document.getElementById("iconCrypto"),
@@ -109,6 +117,10 @@ cryptoLiquidityInputElement && (cryptoLiquidityInputElement.addEventListener('cl
     notifyInvalidAction()
 }))
 
+closeBuyCoinModalButton && (closeBuyCoinModalButton.addEventListener('click', () => {
+    handleBuyCoinModalState(false)
+}))
+
 getCryptoData()
 
 //
@@ -190,6 +202,10 @@ window.addEventListener("DOMContentLoaded", () => {
         buyCoin.classList.add("btn", "btn-success", "col-md-2")
         buyCoin.textContent = "Comprar"
         document.getElementById('buttons').appendChild(buyCoin)
+
+        buyCoin.addEventListener('click', () => {
+            handleBuyCoinModalState(true)
+        })
     }
 })
 
