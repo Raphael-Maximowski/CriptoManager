@@ -31,7 +31,7 @@ git clone https://github.com/Raphael-Maximowski/CriptoManager.git<br>
 Abra o arquivo login.html ou register.html no navegador
 
 <br>**Hospedagem Vercel**<br>
-Link:<br>
+Link: https://raphael-maximowski.github.io/CriptoManager/src/views/login/login.html<br>
 
 Não requer instalação de pacotes<br>
 
