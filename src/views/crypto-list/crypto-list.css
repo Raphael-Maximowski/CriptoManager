@@ -81,6 +81,10 @@ label {
     margin-bottom: 5px;
 }
 
+.medium-text {
+    font-size: 14px;
+}
+
 .modalInput {
     background-color: gray;
     color: lightgray;

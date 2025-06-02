@@ -1,6 +1,7 @@
 import {cryptoCoinsData, updateDataInLocalStorage, updateCoinInDataMockup} from "../../../data/CryptoData.js";
 import { errorNotification, successNotification } from "../../../utils/notifications.js";
 import {validateCoinData} from "../../../utils/validators.js";
+import {registerCoinBought} from "../../../data/WalletData.js";
 
 const cryptoCoins = cryptoCoinsData
 const cryptoNameInputElement = document.getElementById('cryptoNameInputElement')
@@ -17,7 +18,70 @@ const openModalExclused = document.getElementById('openModalExclused')
 const deleteCrypto = document.getElementById('deleteCoin')
 const modalExclusedCoin = document.getElementById('modalExclusedCoin')
 const closeModalExclused = document.getElementById('closeModalExclused')
+const buyCoinModal = new bootstrap.Modal(document.getElementById('buyCoinModal'))
+const closeBuyCoinModalButton = document.getElementById('closeBuyCoinModalButton')
+const buyCoinButton = document.getElementById('buyCrytoButton')
+const coinValuesInput = document.getElementById('coin-values')
+const coinsAmountInput = document.getElementById('coins-amount')
 let cryptoData = null
+let userId = null
+
+const buyCoin = async () => {
+    const coinsAmount = coinsAmountInput.value
+    const coinsValues = coinValuesInput.value.replace("R$ ", '')
+
+    if (!coinsAmount || !coinsValues) {
+        errorNotification("Insira valores válidos!")
+        return
+    }
+
+    const boughtResponse = await registerCoinBought({
+        coinId: cryptoData.id,
+        amountOfCoin: parseFloat(coinsAmount),
+        totalValue: parseFloat(coinsValues),
+        coinName: cryptoData.name,
+        coinTicker: cryptoData.ticker,
+        coinImage: cryptoData.iconUrl,
+        coinValue: cryptoData.price,
+        userId: userId
+    })
+
+    if (boughtResponse) {
+        handleBuyCoinModalState(false)
+        redirectUserToWalletView()
+        return
+    }
+
+}
+
+const redirectUserToWalletView = () => {
+    window.location.href = `../wallet/wallet.html?account=${userId}&boughtCoins=true`;
+}
+
+const calcCoinValuesInput = (coinAmount) => {
+    if (!coinAmount) {
+        coinValuesInput.value = ''
+        return
+    }
+
+    const coinTotalValue = (cryptoData.price * coinAmount).toFixed(2)
+    coinValuesInput.value = `R$ ${coinTotalValue}`
+}
+
+const handleBuyCoinModalState = (state) => {
+    if (state) {
+        buyCoinModal.show()
+        return
+    }
+
+    buyCoinModal.hide()
+    clearBuyCoinsElement()
+}
+
+const clearBuyCoinsElement = () => {
+    coinValuesInput.value = ''
+    coinsAmountInput.value = ''
+}
 
 const informationCrypto = {
     img: document.getElementById("iconCrypto"),
@@ -48,6 +112,12 @@ const setModalDataToUpdate = () => {
     cryptoLiquidityInputElement.value = cryptoData.liquidity
     cryptoNationalityInputElement.value = cryptoData.nationality
     cryptoDescriptionInputElement.value = cryptoData.description
+}
+
+const getUserId = () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    userId = urlParams.get('account');
 }
 
 const getCryptoData = () => {
@@ -90,7 +160,7 @@ const notifyInvalidAction = () => {
 }
 
 const redirectToCryptoListView = () => {
-    window.location.href = `../crypto-list/crypto-list.html`;
+    window.location.href = `../crypto-list/crypto-list.html?account=${userId}`;
 }
 
 updateCryptoButton && (updateCryptoButton.addEventListener('click', () => {
@@ -109,7 +179,20 @@ cryptoLiquidityInputElement && (cryptoLiquidityInputElement.addEventListener('cl
     notifyInvalidAction()
 }))
 
+closeBuyCoinModalButton && (closeBuyCoinModalButton.addEventListener('click', () => {
+    handleBuyCoinModalState(false)
+}))
+
+coinsAmountInput && (coinsAmountInput.addEventListener('input', (event) => {
+    calcCoinValuesInput(event.target.value)
+}))
+
+buyCoinButton && (buyCoinButton.addEventListener('click', () => {
+    buyCoin()
+}))
+
 getCryptoData()
+getUserId()
 
 //
 const limpaNumero = (str) => {
@@ -190,6 +273,10 @@ window.addEventListener("DOMContentLoaded", () => {
         buyCoin.classList.add("btn", "btn-success", "col-md-2")
         buyCoin.textContent = "Comprar"
         document.getElementById('buttons').appendChild(buyCoin)
+
+        buyCoin.addEventListener('click', () => {
+            handleBuyCoinModalState(true)
+        })
     }
 })
 
@@ -208,7 +295,7 @@ deleteCrypto.addEventListener("click", () => {
 
     localStorage.setItem("mensagemSuccess", "Item excluído com sucesso")
 
-    window.location.href = "../crypto-list/crypto-list.html"
+    window.location.href = `../crypto-list/crypto-list.html?account=${userId}`
     
 })
 

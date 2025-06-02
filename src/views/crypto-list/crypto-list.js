@@ -31,11 +31,16 @@ const cryptoDescriptionInputElement = document.getElementById('cryptoDescription
 const createOrUpdateCoinModal = new bootstrap.Modal(document.getElementById('createOrUpdateCoin'));
 const createCoinButton = document.getElementById('createCoinButton')
 const closeCreateCoinModalButton = document.getElementById('closeModalTopButton')
+const redirectToWalletButton = document.getElementById('wallet-redirect')
 
 const redirectToCryptoView = (event) => {
     const tableRow = event.target.closest('tr')
     if (tableRow?.id) {
-        window.location.href = `../crypto-details/crypto-details.html?id=${tableRow?.id}`;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const accountId = urlParams.get('account');
+
+        window.location.href = `../crypto-details/crypto-details.html?id=${tableRow?.id}&account=${accountId}`;
     }
 }
 
@@ -104,6 +109,14 @@ const clearCreateOrUpdateCryptoModalData = () => {
     cryptoLiquidityInputElement.value = ''
     cryptoNationalityInputElement.value = ''
     cryptoDescriptionInputElement.value = ''
+}
+
+const redirectUserToWallet = () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const accountId = urlParams.get('account');
+
+    window.location.href = `../wallet/wallet.html?&account=${accountId}`;
 }
 
 const renderCryptoTableRows = (data) => {
@@ -183,9 +196,6 @@ searchCoins.addEventListener('input', (event) => {
 window.addEventListener("DOMContentLoaded", () => {
     const mensagem = localStorage.getItem("mensagemSuccess")
     const savedfilter = localStorage.getItem("filter")
-
-    console.log("Account", userLogged) // usuário que está logado no sistema
-
     if(savedfilter){
         filterCoins.value = savedfilter
         filter = savedfilter
@@ -206,4 +216,8 @@ logoutButton.addEventListener("click", () => {
         window.location.replace("../login/login.html")
     }
 })
+
+redirectToWalletButton && (redirectToWalletButton.addEventListener('click', () => {
+    redirectUserToWallet()
+}))
 

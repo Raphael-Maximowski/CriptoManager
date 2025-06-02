@@ -72,5 +72,5 @@ document.getElementById("formCreateNewUser").addEventListener("submit", (event) 
         setInterval(redirectToRouter, 1000)
     }
 
-    setInterval(clearInputValue, 3000)
+    setTimeout(clearInputValue, 3000)
 })

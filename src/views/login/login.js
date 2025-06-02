@@ -30,8 +30,6 @@ document.getElementById("formValidationUsuario").addEventListener("submit", (eve
 
     if(responseValidation){
        const users_BD = JSON.parse(localStorage.getItem("Users"))
-       console.log(users_BD)
-       
        if(users_BD === null){
         localStorage.setItem("Users", JSON.stringify([]))
        }
@@ -41,8 +39,6 @@ document.getElementById("formValidationUsuario").addEventListener("submit", (eve
        if(userLogged === undefined){
             errorNotification("Usuário não existe no sistema!")
        }
-
-       console.log(userLogged.number_account)
 
        window.location.replace(`../crypto-list/crypto-list.html?account=${userLogged.number_account}`)
     }
