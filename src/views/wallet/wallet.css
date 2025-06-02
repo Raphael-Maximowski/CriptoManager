@@ -33,3 +33,20 @@
     box-shadow: none;
     border: gray;
 }
+
+.coin-container {
+    background-color: #393838;
+}
+
+.coin-image {
+    background-color: lightgray;
+    padding: 10px;
+}
+
+.small-content {
+    font-size: 12px;
+}
+
+.medium-content {
+    font-size: 14px;
+}

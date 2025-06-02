@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/src/views/login/login.html"
+    },
+    {
+      "source": "/register/register.html",
+      "destination": "/src/views/register/register.html"
+    }
+  ]
+  "cleanUrls": false
+}
