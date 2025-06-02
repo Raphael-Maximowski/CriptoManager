@@ -15,12 +15,12 @@
 <body class="p-3 p-md-5">
 
     <header class="d-flex justify-content-md-between justify-content-center gap-5 py-md-0 py-3">
-        <div id="redirect-container-button" class="d-flex gap-3 align-items-center justify-content-center">
+        <a id="redirect-container-button" tabIndex="0" role="button" class="d-flex gap-3 align-items-center justify-content-center text-decoration-none cursor-pointer">
             <i class="bi fs-3 me-2 bi-bar-chart-fill text-success"></i>
             <h1 class="mb-0 fs-3 fw-bold text-white">CryptoTracker</h1>
-        </div>
+        </a>
 
-        <button id="updateCryptoButton" class="btn px-3 btn-success">
+        <button id="updateCryptoButton" class="btn px-3 btn-secondary">
             Atualizar
         </button>
     </header>
@@ -28,10 +28,10 @@
 
     <div class="modal fade" id="createOrUpdateCoin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content bg-danger">
+            <div class="modal-content bg-dark">
                 <div class="modal-header border-0 d-flex justify-content-between">
                     <h5 class="text-white">Atualizar Crypto</h5>
-                    <button id="closeModalTopButton" class="border-0 bg-transparent">
+                    <button id="closeModalTopButton" class="border-0 bg-transparent" data-bs-dismiss="modal">
                         <i class="text-white bi bi-x-lg fs-5"></i>
                     </button>
                 </div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="border-0 modal-footer">
-                    <button type="button" id="updateCoinDataButton" class="btn btn-light">Atualizar</button>
+                    <button type="button" id="updateCoinDataButton" class="btn btn-secondary">Atualizar</button>
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex gap-3 p-3">
-                        <img src="" alt="icon da cryptomoeda" id="iconCryptoModal">
+                        <img src="" alt="icone da criptomoeda" id="iconCryptoModal">
                         <h2 id="titleModalExclused"></h2>
                     </div>
                     <p class="p-3">Tem certeza que deseja excluir esse item selecionado?</p>
@@ -110,7 +110,7 @@
             <div class="d-md-flex align-items-md-start justify-content-md-between">
                 <div class="info-moedas d-flex align-items-center gap-3">
                     <div class="imagem">
-                        <img src="" alt="iconMoeda" class="" id="iconCrypto">
+                        <img src="" alt="icone da criptomoeda" class="" id="iconCrypto">
                     </div>
                     <div class="info-moeda-text">
                         <h2 class="text-light" id="nameCrypto"></h2>
@@ -123,25 +123,25 @@
                         <p class="text-light fs-3 text-end" id="priceCrypto"></p>
                     </div>
                     <div class="d-flex">
-                        <p class="text-secondary me-3 fs-5">Volume</p>
+                        <p class="text-light me-3 fs-5">Volume: </p>
                         <p class="text-light fs-5" id="volumeCrypto"></p>
                     </div>
                     <div class="d-flex text-end">
-                        <p class="text-secondary me-3 fs-5">Liquidez</p>
+                        <p class="text-light me-3 fs-5">Liquidez: </p>
                         <p class="text-light fs-5" id="liquidityCrypto"></p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <p class="text-secondary fs-5" id="descriptionCrypto">
+                <p class="text-light fs-5 pt-2" id="descriptionCrypto">
                 </p>
             </div>
-            <div id="nationalityCrypto" class="text-secondary fs-5">
+            <div id="nationalityCrypto" class="text-light fs-5">
                 <p class="fw-bold"></p>
             </div>
         </div>
         <div class="pt-5">
-            <canvas id="myChart"></canvas>
+            <canvas id="myChart" class="text-light" aria-label="Gráfico de barras mostrando dados da criptomoeda" role="img"></canvas>
         </div>
         <div class="row pt-5 d-flex justify-content-md-end justify-content-center px-3 pb-3" id="buttons">
             <button class="btn btn-danger col-md-2" id="openModalExclused">Excluir</button>
@@ -150,7 +150,7 @@
 
     <div class="modal  fade" id="buyCoinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-background modal-content">
+            <div class="modal-background bg-dark modal-content">
                 <div class="modal-header border-0 d-flex justify-content-between">
                     <h5 class="modal-title text-white" id="exampleModalLongTitle">Comprar CriptoMoeda</h5>
                     <button class="bg-transparent border-0" type="button" id="closeBuyCoinModalButton"  aria-label="Close">

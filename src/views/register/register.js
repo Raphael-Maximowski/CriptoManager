@@ -59,18 +59,41 @@ IMask(inputTelefone, {
     mask: '(00) 00000-0000'
 }) 
 
+document.addEventListener("DOMContentLoaded", () => {
+    const dataUsers = localStorage.getItem("Users");
+    const data =  dataUsers == null || " "? []: JSON.parse(dataUsers)
+})
+
+const getLocalstorage = (key) => {
+    try{
+        const datas = localStorage.getItem(key)
+
+        if(!datas || datas.trim() === ""){
+            return []
+        }
+
+        const dataToArray = JSON.parse(datas)
+
+        return dataToArray
+    }catch(erro){
+        console.log("Erro ao ler localStorage", erro)
+    }
+
+}
+
+
 document.getElementById("formCreateNewUser").addEventListener("submit", (event) => {
     event.preventDefault()
-    const dataUsers = localStorage.getItem("Users");
     const newUser = createNewUser()
-    const data =  dataUsers == null? []: JSON.parse(dataUsers)
+    const data = getLocalstorage("Users")
+
     const validacao = validateCreateNewUser(newUser, data)
 
     if(validacao){
         data.push(newUser)
         localStorage.setItem("Users", JSON.stringify(data))
-        setInterval(redirectToRouter, 1000)
+        setTimeout(redirectToRouter, 1000)
     }
 
-    setTimeout(clearInputValue, 3000)
+    setTimeout(clearInputValue, 2000)
 })

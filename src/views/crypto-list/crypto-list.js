@@ -58,7 +58,7 @@ const createNewCoin = async () => {
         liquidity: cryptoLiquidityInputElement.value,
         nationality: cryptoNationalityInputElement.value,
         description: cryptoDescriptionInputElement.value,
-        createdByUser: true
+        id_my_creator: userLogged[0].cpf
     }
 
     if (!await validateCoinData(newCryptoData, false)) return
@@ -83,25 +83,51 @@ const createNewCoin = async () => {
 }
 
 const renderCryptoInTemplate = (cryptoData) => {
-    const newTableRow = cryptoTable.insertRow()
-    newTableRow.id = `${cryptoData.id}`
+    const newTableRow = cryptoTable.insertRow();
+    newTableRow.id = `${cryptoData.id}`;
 
-    const coinTick = newTableRow.insertCell(0)
-    coinTick.insertAdjacentHTML("beforeend", `<i class="fs-6 text-success bi bi-currency-bitcoin"/> `);
-    coinTick.insertAdjacentHTML("beforeend", `${cryptoData.ticker}`);
+    const coinTick = newTableRow.insertCell(0);
+    coinTick.insertAdjacentHTML("beforeend", `<i class="fs-6 text-success bi bi-currency-bitcoin cursor-pointer"></i> `);
+    coinTick.insertAdjacentHTML("beforeend", `<span class="cursor-pointer">${cryptoData.ticker}</span>`);
+    coinTick.tabIndex = 0;
 
-    const coinPrice = newTableRow.insertCell(1)
-    coinPrice.innerHTML = `$${cryptoData.price}`
+    const coinPrice = newTableRow.insertCell(1);
+    coinPrice.innerHTML = `$${cryptoData.price}`;
+    coinPrice.tabIndex = 0;
 
-    const coinVolume = newTableRow.insertCell(2)
-    coinVolume.innerHTML = `$${cryptoData.volume}`
+    const coinVolume = newTableRow.insertCell(2);
+    coinVolume.innerHTML = `$${cryptoData.volume}`;
+    coinVolume.tabIndex = 0;
 
-    const coinPercentage = newTableRow.insertCell(3)
-    coinPercentage.innerHTML = cryptoData.dayPercentage < 0 ?
-        `<i class="bi bi-chevron-down"></i> ${cryptoData.dayPercentage}%`
-        : `<i class="bi bi-chevron-up"></i> ${cryptoData.dayPercentage}%`
-    coinPercentage.style.color = cryptoData.dayPercentage < 0 ? 'red' : '#198754'
-}
+    const coinPercentage = newTableRow.insertCell(3);
+    coinPercentage.innerHTML = cryptoData.dayPercentage < 0
+        ? `<i class="bi bi-chevron-down"></i> ${cryptoData.dayPercentage}%`
+        : `<i class="bi bi-chevron-up"></i> ${cryptoData.dayPercentage}%`;
+    coinPercentage.style.color = cryptoData.dayPercentage < 0 ? 'red' : '#198754';
+    coinPercentage.tabIndex = 0;
+
+    const allCells = newTableRow.querySelectorAll('td');
+    const colunas = 4;
+
+    allCells.forEach((cell, index) => {
+        cell.addEventListener('keydown', (e) => {
+            const allFocusable = document.querySelectorAll('#cryptoTable td');
+            // Descobre a posição da célula atual no array global
+            const currentIndex = Array.from(allFocusable).indexOf(e.target);
+
+            if (e.key === 'ArrowRight' && allFocusable[currentIndex + 1]) {
+                allFocusable[currentIndex + 1].focus();
+            } else if (e.key === 'ArrowLeft' && allFocusable[currentIndex - 1]) {
+                allFocusable[currentIndex - 1].focus();
+            } else if (e.key === 'ArrowDown' && allFocusable[currentIndex + colunas]) {
+                allFocusable[currentIndex + colunas].focus();
+            } else if (e.key === 'ArrowUp' && allFocusable[currentIndex - colunas]) {
+                allFocusable[currentIndex - colunas].focus();
+            }
+        });
+    });
+};
+
 
 const clearCreateOrUpdateCryptoModalData = () => {
     cryptoNameInputElement.value = ''
@@ -160,7 +186,8 @@ function applyFilters() {
             arrayFiltered = arrayFiltered.filter(coin => coin.dayPercentage < 0)
             break;
             case "my-coin":
-                arrayFiltered = arrayFiltered.filter(coin => coin.createdByUser == true)
+                const myCoin = arrayFiltered.filter(coin => coin.id_my_creator === userLogged[0].cpf)
+                arrayFiltered = myCoin
                 break;
         default:
             arrayFiltered = [...cryptoCoins]
@@ -220,4 +247,6 @@ logoutButton.addEventListener("click", () => {
 redirectToWalletButton && (redirectToWalletButton.addEventListener('click', () => {
     redirectUserToWallet()
 }))
+
+
 

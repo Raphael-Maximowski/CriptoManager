@@ -9,7 +9,7 @@ const originalArray = [
     "liquidity": "120.000.000.000",
     "description": "Primeira criptomoeda descentralizada do mundo, criada como uma alternativa ao sistema financeiro tradicional. Funciona como \"ouro digital\" e reserva de valor.",
     "nationality": "Japão (pseudônimo do criador, Satoshi Nakamoto)",
-    "createdByUser": false,
+    "id_my_creator": [],
     "iconUrl": "https://servidor-estaticos-omega-liard.vercel.app/bitcoin.png"
     },
     {
@@ -22,7 +22,7 @@ const originalArray = [
     "liquidity": "45.000.000.000",
     "description": "Plataforma de contratos inteligentes que permitiu a criação de tokens, NFTs e aplicações descentralizadas (DApps). Considerada a \"internet do blockchain\".",
     "nationality": "Suíça (fundação Ethereum) / Canadá (Vitalik Buterin)",
-    "createdByUser": false,
+    "id_my_creator": [],
     "iconUrl": "https://servidor-estaticos-omega-liard.vercel.app/ethereum.png"
     },
     {
@@ -35,7 +35,7 @@ const originalArray = [
     "liquidity": "15.000.000.000",
     "description": "Blockchain de alta velocidade e baixo custo, focada em escalabilidade. Concorrente direta da Ethereum, com forte adoção em DeFi e NFTs.",
     "nationality": "Estados Unidos",
-    "createdByUser": false,
+    "id_my_creator": [],
     "iconUrl": "https://servidor-estaticos-omega-liard.vercel.app/solana.png"
     },
     {
@@ -48,7 +48,7 @@ const originalArray = [
     "liquidity": "4.500.000.000",
     "description": "Criado pela Ripple Labs, é voltado para transações bancárias rápidas e de baixo custo entre instituições financeiras. Polemico por processos da SEC.",
     "nationality": "Estados Unidos (Ripple Labs)",
-    "createdByUser": false,
+    "id_my_creator": [],
     "iconUrl": "https://servidor-estaticos-omega-liard.vercel.app/xrp.png"
     },
     {
@@ -61,7 +61,7 @@ const originalArray = [
     "liquidity": "3.200.000.000",
     "description": "Criptomoeda meme criada como brincadeira, mas que ganhou popularidade graças a Elon Musk e uma comunidade engajada. Usada para gorjetas e pagamentos.",
     "nationality": "Internacional (criadores: Billy Markus (EUA) e Jackson Palmer (Austrália))",
-    "createdByUser": false,
+    "id_my_creator": [],
     "iconUrl": "https://servidor-estaticos-omega-liard.vercel.app/dogecoin.png"
     },
     {
@@ -74,7 +74,7 @@ const originalArray = [
     "liquidity": "2.800.000.000",
     "description": "Blockchain de terceira geração com foco em segurança e escalabilidade, usando prova de participação (PoS). Conhecida por sua abordagem acadêmica e desenvolvimento lento, porém metódico.",
     "nationality": "Suíça (Input Output Hong Kong - IOHK) / Fundador: Charles Hoskinson (EUA)",
-    "createdByUser": false,
+    "id_my_creator": [],
     "iconUrl": "https://servidor-estaticos-omega-liard.vercel.app/cardano.png"
     }
 
