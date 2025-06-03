@@ -157,3 +157,10 @@ amountToSell && (amountToSell.addEventListener('input', () => {
 sellCoinButton && (sellCoinButton.addEventListener('click', () => {
     validateCoinToSell()
 }))
+
+redirectContainer.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault(); // impede scroll com espaço
+        redirectContainer.click();        // dispara o clique programaticamente
+    }
+});

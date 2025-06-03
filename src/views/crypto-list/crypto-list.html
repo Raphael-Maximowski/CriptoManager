@@ -16,12 +16,12 @@
     <header class="d-flex justify-content-between flex-md-row flex-column gap-3">
 
         <div class="w-md-75 w-100 d-flex justify-content-between align-items-center">
-            <div class="d-flex align-content-end gap-3">
+            <div class="d-flex align-content-end gap-3 text-decoration-none">
                 <i class="bi fs-3 me-2 bi-bar-chart-fill text-success"></i>
                 <h1 class="mb-0 fs-3 fw-bold text-white">CryptoTracker</h1>
             </div>
             <div class="d-flex  h-100 gap-3">
-                <button id="wallet-redirect" class="medium-text  btn-success btn">
+                <button id="wallet-redirect" class="medium-text  btn-secondary btn fs-6">
                     Carteira
                     <i class="ms-2 bi bi-wallet-fill"></i>
                 </button>
@@ -31,7 +31,7 @@
 
         <div class="d-md-flex align-content-center input-group group">
             <button class="btn btn-dark">
-                <i class="bi bi-search text-secondary"></i>
+                <i class="bi bi-search text-light"></i>
             </button>
             <input class="form-control py-2 search-input bg-dark" id="searchCoins" placeholder="Pesquisar..." />
         </div>
@@ -40,11 +40,11 @@
     <main class="flex-grow-1 gap-4 d-flex flex-column">
         <div class="d-flex justify-content-between align-items-md-center px-2">
             <div class="d-flex gap-3">
-                <p class="text-color mb-0 main-info">
+                <p class="text-light mb-0 main-info">
                     24h Vol:
                     <span class="fw-bold text-success">$78.5B</span>
                 </p>
-                <p class="text-color mb-0 main-info">
+                <p class="text-light mb-0 main-info">
                     Top Gainers:
                     <span class="fw-bold text-success">BTC/Bitcoin</span>
                 </p>
@@ -89,8 +89,9 @@
     </main>
 
     <footer>
-        <button class="btn btn-outline-danger fs-5 h-75 d-flex justify-content-center align-items-center" id="buttonLogOut">
+        <button class="text-light btn btn-danger d-flex justify-content-center gap-2 fs-5 p-2" id="buttonLogOut">
             <i class="bi bi-box-arrow-right"></i>
+            <p class="mb-0">Sair</p>
         </button>
     </footer>
 </div>
@@ -108,18 +109,18 @@
             <div class="modal-body">
                 <div class="d-flex gap-3 justify-content-between mb-3">
                     <div class="col-md-8">
-                        <label class="text-white">Nome: </label>
+                        <label class="text-light">Nome: </label>
                         <input id="cryptoNameInputElement" class="modalInput form-control" placeholder="Insira o Nome"/>
                     </div>
                     <div class="col-md-3">
-                        <label class="text-white">Simbolo: </label>
+                        <label class="text-light">Simbolo: </label>
                         <input id="cryptoTickerInputElement" class="modalInput form-control" placeholder="Insira o Simbolo"/>
                     </div>
                 </div>
 
                 <div class="d-flex gap-3 justify-content-between">
                     <div class="col-md-8">
-                        <label class="text-white">Liquidez Inicial: </label>
+                        <label class="text-light">Liquidez Inicial: </label>
                         <div class="position-relative">
                             <span class="input-prefix position-absolute">
                                 U$
@@ -129,7 +130,7 @@
 
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="text-white">Nacionalidade: </label>
+                        <label class="text-light">Nacionalidade: </label>
                         <input id="cryptoNationatilityInputElement" class="modalInput form-control" placeholder="Insira a Nacionalidade"/>
                     </div>
 
@@ -139,7 +140,7 @@
                     <div>
 
                     <div class="mt-3">
-                        <label class="text-white">Descrição: </label>
+                        <label class="text-light">Descrição: </label>
                         <textarea id="cryptoDescriptionInputElement" class="modalInput form-control"  rows="8" placeholder="Insira a Descrição"></textarea>
                     </div>
                 </div>

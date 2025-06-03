@@ -12,16 +12,12 @@ body {
 }
 
 .search-input::placeholder {
-    color: gray;
+    color: #fff;
 }
 
 .search-input:focus {
     box-shadow: none;
-    color: gray;
-}
-
-.text-color {
-    color: gray;
+    color: #fff;
 }
 
 .create-coin-button, .main-info {
@@ -40,7 +36,7 @@ th, td {
     min-width: 250px;
     width: 0%;
     vertical-align: middle;
-    color: gray;
+    color: #fff;
 }
 
 thead {
@@ -85,22 +81,8 @@ label {
     font-size: 14px;
 }
 
-.modalInput {
-    background-color: gray;
-    color: lightgray;
-    border: gray;
-    font-size: 13px;
-}
-
 .modalInput::placeholder {
-    color: lightgray;
-}
-
-.modalInput:focus {
-    background-color: gray;
-    color: lightgray;
-    box-shadow: none;
-    border: gray;
+    color: #343a40;
 }
 
 .input-prefix {
@@ -108,7 +90,7 @@ label {
     margin-left: 10px;
     transform: translateY(-50%);
     font-size: 13px;
-    color: lightgray;
+    color: #343a40;
 }
 
 .liquidity-input {

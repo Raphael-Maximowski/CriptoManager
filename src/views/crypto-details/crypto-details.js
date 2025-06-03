@@ -4,6 +4,7 @@ import {validateCoinData} from "../../../utils/validators.js";
 import {registerCoinBought} from "../../../data/WalletData.js";
 
 const cryptoCoins = cryptoCoinsData
+const users = JSON.parse(localStorage.getItem("Users"))
 const cryptoNameInputElement = document.getElementById('cryptoNameInputElement')
 const cryptoTickerInputElement = document.getElementById('cryptoTickerInputElement')
 const cryptoLiquidityInputElement = document.getElementById('cryptoLiquidityInputElement')
@@ -23,8 +24,10 @@ const closeBuyCoinModalButton = document.getElementById('closeBuyCoinModalButton
 const buyCoinButton = document.getElementById('buyCrytoButton')
 const coinValuesInput = document.getElementById('coin-values')
 const coinsAmountInput = document.getElementById('coins-amount')
+const redirectContainer = document.getElementById("redirect-container-button")
 let cryptoData = null
 let userId = null
+
 
 const buyCoin = async () => {
     const coinsAmount = coinsAmountInput.value
@@ -118,6 +121,8 @@ const getUserId = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     userId = urlParams.get('account');
+
+    return userId
 }
 
 const getCryptoData = () => {
@@ -138,7 +143,6 @@ const updateCryptoData = async () => {
         liquidity: cryptoLiquidityInputElement.value,
         nationality: cryptoNationalityInputElement.value,
         description: cryptoDescriptionInputElement.value,
-        createdByUser: true
     }
 
     if (!await validateCoinData(cryptoDataToUpdate, true)) return 
@@ -218,37 +222,60 @@ const myChart = document.getElementById('myChart').getContext('2d')
 
 new Chart (myChart, {
     type: 'bar',
-    data:{
+    data: {
         labels: ['Preço (USD)', 'Volume', 'Liquidez'],
         datasets: [{
-            label: `indicadores - ${cryptoData.name}`,
-            data: [parseFloat(cryptoData.price), parseFloat(liquidityNumber), parseFloat(volumeNumber)],
-            backgroundColor: ["#36a2eb", "#ffcd56", "#4bc0c0"]
+        label: `indicadores - ${cryptoData.name}`,
+        data: [
+            parseFloat(cryptoData.price),
+            parseFloat(liquidityNumber),
+            parseFloat(volumeNumber)
+        ],
+        backgroundColor: ["#36a2eb", "#ffcd56", "#4bc0c0"]
         }]
     },
     options: {
-    indexAxis: 'y', // horizontal
-    responsive: true,
-    scales: {
+        indexAxis: 'y', // gráfico horizontal
+        responsive: true,
+        scales: {
         x: {
-        beginAtZero: true
+            beginAtZero: true,
+            ticks: {
+            color: '#ffffff' // cor dos números no eixo X
+            }
+        },
+        y: {
+            ticks: {
+            color: '#ffffff' // cor dos rótulos no eixo Y
+            }
         }
-    },
-    plugins: {
+        },
+        plugins: {
         legend: {
-        display: false
+            display: false,
+            labels: {
+            color: '#ffffff' // se quiser mostrar a legenda
+            }
         },
         tooltip: {
-        callbacks: {
+            callbacks: {
             label: (context) => {
-            if (context.parsed.x > 1000000) {
+                if (context.parsed.x > 1000000) {
                 return (context.parsed.x / 1000000).toFixed(2) + 'M';
+                }
+                return context.parsed.x;
             }
-            return context.parsed.x;
+            }
+        },
+        title: {
+            display: true,
+            text: `Indicadores da ${cryptoData.name}`,
+            color: '#ffffff',
+            font: {
+            size: 18
             }
         }
         }
-    }
     }
 })
 
@@ -264,8 +291,11 @@ const setCoinsNotExclused = (coins, coinExclused) => {
 
 window.addEventListener("DOMContentLoaded", () => {
     renderInformationsCoin(cryptoData, informationCrypto)
+    const id_userLogged = getUserId()
 
-    if(!cryptoData.createdByUser){
+    let userLogged = users.find(user => user.number_account == id_userLogged)
+
+    if(cryptoData.id_my_creator !== userLogged.cpf){
         document.getElementById('updateCryptoButton').classList.add('hidden')
         document.getElementById('openModalExclused').classList.add('hidden')
 
@@ -302,6 +332,13 @@ deleteCrypto.addEventListener("click", () => {
 closeModalExclused.addEventListener("click", () => {
     modalExclusedCoin.hide()
 })
+
+redirectContainer.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault(); // impede scroll com espaço
+        redirectContainer.click();        // dispara o clique programaticamente
+    }
+});
 
 
 

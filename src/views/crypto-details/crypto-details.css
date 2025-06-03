@@ -12,24 +12,11 @@
     display: none;
 }
 
-.modal-background {
-    background-color: #212529;
-}
-
-.modalInput {
-    background-color: gray;
-    color: lightgray;
-    border: gray;
-    font-size: 13px;
-}
-
 .modalInput::placeholder {
-    color: lightgray;
+    color: #343a40;
 }
 
-.modalInput:focus {
-    background-color: gray;
-    color: lightgray;
-    box-shadow: none;
-    border: gray;
+.cursor-pointer{
+    cursor:pointer;
 }
+
